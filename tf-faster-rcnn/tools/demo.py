@@ -74,9 +74,9 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         for j in list_bbox:
             if (i!=j):
                 tmp = checkOverLap(i,j)
-                if tmp > 50:
-                    break
-                    
+                # if tmp > 50:
+                #     break
+
     for bbox in list_bbox:
         # print(bbox)
         if (bbox[5]):
