@@ -45,7 +45,7 @@ NETS = {'vgg16': ('vgg16_faster_rcnn_iter_70000.ckpt',),'res101': ('res101_faste
 DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
 def checkOverLap(a,b):
-    if abs(a[0]-b[0]) < 0.5:
+    if abs(a[0]-b[0]) < 1.5:
         if (a[4]>b[4]):
             b[5] = False
         else:
