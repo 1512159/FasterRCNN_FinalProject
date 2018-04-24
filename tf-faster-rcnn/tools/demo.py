@@ -92,7 +92,7 @@ def demo(sess, net, image_name):
     
     if not os.path.exists('result'):
         os.makedirs('result')
-    cv2.imwrite('result/'+"__"+image_name,im)
+    cv2.imwrite('result/'+image_name,im)
 
 def parse_args():
     """Parse input arguments."""
