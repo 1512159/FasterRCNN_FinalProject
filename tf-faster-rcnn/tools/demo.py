@@ -1,3 +1,6 @@
+#Hoang Trung Hieu - 1512159
+#Nhap mon  TGMT 15CNTN
+
 #!/usr/bin/env python
 
 # --------------------------------------------------------
