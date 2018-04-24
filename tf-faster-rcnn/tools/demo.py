@@ -68,13 +68,13 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],score,True])
     
     list_bbox.sort()
-    print(list_bbox)
+    
     for i in list_bbox:
         for j in list_bbox:
             if (i!=j):
                 checkOverLap(i,j)
-    print(list_bbox)
     for bbox in list_bbox:
+        print(bbox)
         if (bbox[5]):
         # if (True):
             cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
