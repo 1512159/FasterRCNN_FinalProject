@@ -47,11 +47,11 @@ DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_tr
 def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
-    # if len(inds) == 0:
-    #     return
+    if len(inds) == 0:
+        return
     font = cv2.FONT_HERSHEY_SIMPLEX
-    if (class_name != 'car'):
-         return
+    # if (class_name != 'car'):
+    #      return
     list_bbox = []
     
     
@@ -92,8 +92,7 @@ def demo(sess, net, image_name):
     
     if not os.path.exists('result'):
         os.makedirs('result')
-    cv2.imwrite('result/'+str(COUNT)+"__"+image_name,im)
-    COUNT = COUNT + 1
+    cv2.imwrite('result/'+"__"+image_name,im)
 
 def parse_args():
     """Parse input arguments."""
