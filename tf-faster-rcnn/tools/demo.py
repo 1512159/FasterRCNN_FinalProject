@@ -50,13 +50,15 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     if len(inds) == 0:
         return
     font = cv2.FONT_HERSHEY_SIMPLEX
-
+    if (class_name != 'car'):
+         return
     list_bbox = []
-    #im = im[:, :, (2, 1, 0)]
+    
+    
     for i in inds:
         bbox = dets[i, :4]
         score = dets[i, -1]
-        #list_bbox.append(bbox[0], bbox[1], bbox[2], bbox[3],score) ##add to list_bbox
+        print(bbox[0], bbox[1], bbox[2], bbox[3],score)
         cv2.rectangle(im, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
         cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
 
