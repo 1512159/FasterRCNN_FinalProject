@@ -140,7 +140,7 @@ if __name__ == '__main__':
     #             'pic4.png', 'pic5.png', 'pic6.png']
     im_names = os.listdir('../data/demo')
     for im_name in im_names:
-        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         print('Demo for data/demo/{}'.format(im_name))
         demo(sess, net, im_name)
 
