@@ -84,7 +84,9 @@ def demo(sess, net, image_name):
         dets = dets[keep, :]
         im1 = im.copy()
         vis_detections(im1, cls, dets, thresh=CONF_THRESH)
-        cv2.imwrite(str(COUNT)+"__"+image_name,im1)
+        if not os.path.exists('result'):
+            os.makedirs('result')
+        cv2.imwrite('result/'+str(COUNT)+"__"+image_name,im1)
         COUNT = COUNT + 1
 
 def parse_args():
