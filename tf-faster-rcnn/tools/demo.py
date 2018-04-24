@@ -61,7 +61,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     list_bbox.sort()
 
     for bbox in list_bbox:
-        cv2.rectangle((im,bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
+        cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
         cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
 
 
