@@ -52,7 +52,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     font = cv2.FONT_HERSHEY_SIMPLEX
 
     list_bbox = []
-    im = im[:, :, (2, 1, 0)]
+    #im = im[:, :, (2, 1, 0)]
     for i in inds:
         bbox = dets[i, :4]
         score = dets[i, -1]
