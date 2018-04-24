@@ -46,10 +46,10 @@ DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_tr
 
 def checkOverLap(a,b):
     if abs(a[0]-b[0]) < 1.0:
-        if (a[3]>b[3]):
-            b[4] = False
+        if (a[4]>b[4]):
+            b[5] = False
         else:
-            b[4] = False
+            b[5] = False
     return
 
 def vis_detections(im, class_name, dets, thresh=0.5):
@@ -64,7 +64,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     for i in inds:
         bbox = dets[i, :4]
         score = dets[i, -1]
-        list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],True])
+        list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],score,True])
     
     list_bbox.sort()
     for i in list_bbox:
@@ -73,7 +73,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
                 checkOverLap(i,j)
 
     for bbox in list_bbox:
-        if (bbox[4]):
+        if (bbox[5]):
             cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
             cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
 
