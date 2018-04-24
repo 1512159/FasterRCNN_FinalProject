@@ -44,6 +44,14 @@ CLASSES = ('__background__',
 NETS = {'vgg16': ('vgg16_faster_rcnn_iter_70000.ckpt',),'res101': ('res101_faster_rcnn_iter_110000.ckpt',)}
 DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
+def checkOverLap(a,b):
+    if abs(a[0]-b[0]) < 1.0:
+        if (a[3]>b[3]):
+            b[4] = False
+        else:
+            b[3] = False
+    return
+
 def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
@@ -59,10 +67,15 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],True])
     
     list_bbox.sort()
+    for i in list_bbox:
+        for j in list_bbox:
+            if (i!=j):
+                checkOverLap(i,j)
 
     for bbox in list_bbox:
-        cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
-        cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
+        if (bbox[4]):
+            cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
+            cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
 
 
 def demo(sess, net, image_name):
