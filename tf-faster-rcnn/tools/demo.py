@@ -45,7 +45,7 @@ NETS = {'vgg16': ('vgg16_faster_rcnn_iter_70000.ckpt',),'res101': ('res101_faste
 DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
 def checkOverLap(a,b):
-    if abs(a[0]-b[0]) < 1.0:
+    if abs(a[0]-b[0]) < 0.5:
         if (a[4]>b[4]):
             b[5] = False
         else:
@@ -73,7 +73,8 @@ def vis_detections(im, class_name, dets, thresh=0.5):
                 checkOverLap(i,j)
 
     for bbox in list_bbox:
-        if (bbox[5]):
+        #if (bbox[5]):
+        if (True):
             cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
             cv2.putText(im, class_name, (bbox[0], bbox[1]), font, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
 
