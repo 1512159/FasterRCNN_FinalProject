@@ -56,7 +56,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     for i in inds:
         bbox = dets[i, :4]
         score = dets[i, -1]
-        list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3]],True)
+        list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],True])
     
     list_bbox.sort()
 
