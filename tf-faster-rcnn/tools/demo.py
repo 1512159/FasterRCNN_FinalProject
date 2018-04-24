@@ -82,12 +82,11 @@ def demo(sess, net, image_name):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        im1 = im.copy()
-        vis_detections(im1, cls, dets, thresh=CONF_THRESH)
+        vis_detections(im, cls, dets, thresh=CONF_THRESH)
     
     if not os.path.exists('result'):
         os.makedirs('result')
-    cv2.imwrite('result/'+str(COUNT)+"__"+image_name,im1)
+    cv2.imwrite('result/'+str(COUNT)+"__"+image_name,im)
     COUNT = COUNT + 1
 
 def parse_args():
