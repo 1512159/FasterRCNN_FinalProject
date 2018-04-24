@@ -49,7 +49,7 @@ def checkOverLap(a,b):
         if (a[4]>b[4]):
             b[5] = False
         else:
-            b[5] = False
+            a[5] = False
     return
 
 def vis_detections(im, class_name, dets, thresh=0.5):
