@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
     # im_names = ['pic1.png', 'pic2.png', 'pic3.png',
     #             'pic4.png', 'pic5.png', 'pic6.png']
-    im_names = os.listdir('.')
+    im_names = os.listdir('../data/demo')
     for im_name in im_names:
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         print('Demo for data/demo/{}'.format(im_name))
