@@ -45,12 +45,13 @@ NETS = {'vgg16': ('vgg16_faster_rcnn_iter_70000.ckpt',),'res101': ('res101_faste
 DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
 def checkOverLap(a,b):
-    if abs(abs(a[0]-a[3]) - abs(b[0]-b[3])) < 5:
+    val = abs(abs(a[0]-a[3]) - abs(b[0]-b[3]))
+    if val < 5:
         if (a[4]>b[4]):
             b[5] = False
         else:
             a[5] = False
-    return
+    return val
 
 def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
@@ -60,7 +61,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     font = cv2.FONT_HERSHEY_SIMPLEX
     # if (class_name != 'car'):
     #      return
-    print('----->',class_name)
+    # print('----->',class_name)
     list_bbox = []
     for i in inds:
         bbox = dets[i, :4]
@@ -72,9 +73,12 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     for i in list_bbox:
         for j in list_bbox:
             if (i!=j):
-                checkOverLap(i,j)
+                tmp = checkOverLap(i,j)
+                if tmp > 50:
+                    break
+                    
     for bbox in list_bbox:
-        print(bbox)
+        # print(bbox)
         if (bbox[5]):
         # if (True):
             cv2.rectangle(im,(bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 1)
