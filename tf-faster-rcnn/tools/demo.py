@@ -44,14 +44,29 @@ CLASSES = ('__background__',
 NETS = {'vgg16': ('vgg16_faster_rcnn_iter_70000.ckpt',),'res101': ('res101_faster_rcnn_iter_110000.ckpt',)}
 DATASETS= {'pascal_voc': ('voc_2007_trainval',),'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
-def checkOverLap(a,b):
-    val = abs(abs(a[0]-a[3]) - abs(b[0]-b[3]))
-    if val < 5:
-        if (a[4]>b[4]):
-            b[5] = False
-        else:
-            a[5] = False
-    return val
+# def checkOverLap(a,b):
+#     val = abs(abs(a[0]-a[3]) - abs(b[0]-b[3]))
+#     if val < 5:
+#         if (a[4]>b[4]):
+#             b[5] = False
+#         else:
+#             a[5] = False
+#     return val
+
+# --------- TP ------
+def sBox(b) :
+    return abs(float(b[2])-float(b[0]))*abs(float(b[1])-float(b[3]))
+def sOverlap(bbox1, bbox2):
+    dx = float(min(bbox1[2], bbox2[2])) - float(max(bbox1[0], bbox2[0]))
+    dy = float(min(bbox2[3], bbox1[3])) - float(max(bbox1[1], bbox2[1]))
+    if(dx >= 0) and (dy >= 0):
+        return dx*dy
+    return 0    
+def isOverLap(bbox1, bbox2) :
+    sOver = sOverlap(bbox1, bbox2)
+    tmp = sBox(bbox1) + sBox(bbox2) - sOver
+    return (sOver/tmp)*100
+# -----------
 
 def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
@@ -59,9 +74,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     if len(inds) == 0:
         return
     font = cv2.FONT_HERSHEY_SIMPLEX
-    # if (class_name != 'car'):
-    #      return
-    # print('----->',class_name)
+
     list_bbox = []
     for i in inds:
         bbox = dets[i, :4]
@@ -69,13 +82,39 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         list_bbox.append([bbox[0], bbox[1],bbox[2], bbox[3],score,True])
     
     list_bbox.sort()
-    
-    for i in list_bbox:
-        for j in list_bbox:
-            if (i!=j):
-                tmp = checkOverLap(i,j)
-                # if tmp > 50:
-                #     break
+    ### TP fix filter ------------------------------
+    luckynumber = 69.96
+    for i in range(len(list_bbox)):
+        if(list_bbox[i][5] == True) :
+            q = []
+            for j in range(len(list_bbox)):
+                if (j > i) and (list_bbox[j][5] == True):
+                    if(isOverLap(list_bbox[i], list_bbox[j]) >= luckynumber) :
+                        q.append(j)                    
+            vt = i
+            max_score = list_bbox[i][4]
+            for e in range(len(q)):
+                if(max_score < list_bbox[q[e]][4]):
+                    max_score = list_bbox[q[e]][4]
+                    vt = q[e]
+            if(vt == i):
+                for e in range(len(q)):
+                    list_bbox[q[e]][5] = False 
+            if(vt != i):
+                list_bbox[i][5] = False
+                for e in range(len(q)):
+                    if(q[e] != vt):
+                        list_bbox[q[e]][5] = False
+    ### ----------------------------------------------
+
+
+
+    # for i in list_bbox:
+    #     for j in list_bbox:
+    #         if (i!=j):
+    #             tmp = checkOverLap(i,j)
+    #             # if tmp > 50:
+    #             #     break
 
     for bbox in list_bbox:
         # print(bbox)
@@ -166,9 +205,10 @@ if __name__ == '__main__':
     # im_names = ['pic1.png', 'pic2.png', 'pic3.png',
     #             'pic4.png', 'pic5.png', 'pic6.png']
     im_names = os.listdir('../data/demo')
-    for im_name in im_names:
+    numOfFile = str(len(im_names))
+    for index, im_name in enumerate(im_names):
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        print('Demo for data/demo/{}'.format(im_name))
+        print('['+numOfFile+'/'+str(index)+'] Demo for data/demo/{}'.format(im_name))
         demo(sess, net, im_name)
 
     plt.show()
