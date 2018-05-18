@@ -16,17 +16,24 @@ def parse_rec(filename):
   """ Parse a DETRAC xml file """
   tree = ET.parse(filename)
   objects = []
-  for obj in tree.findall('object'):
+  for obj in tree.findall('target'):
     obj_struct = {}
-    obj_struct['name'] = obj.find('name').text
-    obj_struct['pose'] = obj.find('pose').text
-    obj_struct['truncated'] = int(obj.find('truncated').text)
-    obj_struct['difficult'] = int(obj.find('difficult').text)
-    bbox = obj.find('bndbox')
-    obj_struct['bbox'] = [int(bbox.find('xmin').text),
-                          int(bbox.find('ymin').text),
-                          int(bbox.find('xmax').text),
-                          int(bbox.find('ymax').text)]
+    # obj_struct['name'] = obj.find('name').text
+    # obj_struct['pose'] = obj.find('pose').text
+    # obj_struct['truncated'] = int(obj.find('truncated').text)
+    # obj_struct['difficult'] = int(obj.find('difficult').text)
+    box = obj.find('box')
+    x1 = float(box.attrib['left'])
+    y1 = float(box.attrib['top'])
+    x2 = x1 + float(box.attrib['width'])
+    y2 = y1 + float(box.attrib['height'])
+    obj_struct['bbox'] = [x1,
+                          y1,
+                          x2,
+                          y2]
+    
+    
+    
     objects.append(obj_struct)
 
   return objects
@@ -66,7 +73,7 @@ def voc_ap(rec, prec, use_07_metric=False):
   return ap
 
 
-def voc_eval(detpath,
+def detrac_eval(detpath,
              annopath,
              imagesetfile,
              classname,
