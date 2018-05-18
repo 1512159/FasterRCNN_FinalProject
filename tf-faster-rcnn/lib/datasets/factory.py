@@ -29,7 +29,7 @@ for year in ['2007', '2012']:
     __sets[name] = (lambda split=split, year=year: pascal_voc(split, year, use_diff=True))
 
 for year in ['2015']:
-  for split in ['test', 'trainval']:
+  for split in ['test', 'trainval','val','trainval']:
     name = 'detrac_{}_{}'.format(year, split)
     __sets[name] = (lambda split=split, year=year: detrac(split, year))
 
