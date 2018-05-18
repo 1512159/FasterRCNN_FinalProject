@@ -140,19 +140,20 @@ class detrac(imdb):
     Load image and bounding boxes info from XML file in the PASCAL VOC
     format.
     """
-
     filename = os.path.join(self._data_path, 'Annotations', index + '.xml')
-    tree = ET.parse(filename)
     print('>>> reading annotation files', filename)
+
+    tree = ET.parse(filename)
+    
     objs = tree.findall('target')
-    if not self.config['use_diff']:
-      # Exclude the samples labeled as difficult
-      non_diff_objs = [
-        obj for obj in objs if int(obj.find('difficult').text) == 0]
-      # if len(non_diff_objs) != len(objs):
-      #     print 'Removed {} difficult objects'.format(
-      #         len(objs) - len(non_diff_objs))
-      objs = non_diff_objs
+    # if not self.config['use_diff']:
+    #   # Exclude the samples labeled as difficult
+    #   non_diff_objs = [
+    #     obj for obj in objs if int(obj.find('difficult').text) == 0]
+    #   # if len(non_diff_objs) != len(objs):
+    #   #     print 'Removed {} difficult objects'.format(
+    #   #         len(objs) - len(non_diff_objs))
+    #   objs = non_diff_objs
     num_objs = len(objs)
 
     boxes = np.zeros((num_objs, 4), dtype=np.uint16)
