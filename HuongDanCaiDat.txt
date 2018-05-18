@@ -1,0 +1,68 @@
+# Mon hoc Thi giac May tinh		#
+# 15 Cu nhan Tai nang			#
+# 1512159 - Hoang Trung Hieu	#
+# 1512398 - Do Thanh Phong		#
+#################################
+
+HƯỚNG DẪN SETUP MÁY ẢO:
+
+<1> 	1.1. Truy cập google colab https://colab.research.google.com
+		1.2. Đăng nhập vào tài khoản trunghieuhoangfit@gmail.com, password: trunghieuhoang1997
+		1.3. Truy cập vào ngrok.com, tài khoản hieu16.6@gmail.com, password: trunghieuhoang1997
+		1.4. Vào notebook Setup may ao 1.ipynb hoac Setup may ao 2, chạy lần lượt từ trên xuống dưới
+
+<2> 	2.1. Vào trang ngrok, mục status, tìm xem máy ảo đang được mở trên port bao nhiêu?
+		2.2. Vào terminal, gõ lệnh: ssh root@0.tcp.ngrok.io -p10243
+			* Trong trường hợp lỗi connection refused: chạy lại lệnh ! service ssh start
+		2.3. Nhập password: trunghieuhoang
+			* Trong trường hợp bị mất kết nối, khi kết nối lại máy ảo phải chạy lại đoạn lệnh:
+			
+			export PATH=/opt/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tools/node/bin:/tools/google-cloud-sdk/bin
+			export LD_LIBRARY_PATH=/usr/lib64-nvidia
+			export PYTHONPATH=/env/python
+
+<3> 	3.1 Clone project tại: git clone https://github.com/1512159/fasterRCNN_FinalProject
+		3.2 Thực thi file setup.sh bằng lệnh:
+
+			chmod +x setup.sh
+			./setup.sh
+
+		3.3 Đợi cài đặt xong, tới đoạn cài đặt cuda thì cần cấu hình như sau:
+			[y] [n] [y] [enter] [y] [y] [enter]
+
+		3.4 Chạy bổ sung đoạn lệnh: (nếu cần thiết)
+		
+		ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc
+		ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
+
+<4> 	Kiểm tra quá trình cài đặt:
+		
+		nvidia-smi
+
+		*Trong trường hợp chạy lệnh trên ko đc thì chạy lại đoạn lệnh nè:
+
+export PATH=/opt/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tools/node/bin:/tools/google-cloud-sdk/bin
+export LD_LIBRARY_PATH=/usr/lib64-nvidia
+export PYTHONPATH=/env/python
+
+<5> 	Mở fileZilla: 
+		Host: sftp://0.tcp.ngrok.io
+		Username: root
+		Password: trunghieuhoang
+
+<6> Cài ggdrive client:
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1G6tAkrIEmtxsRev-Ed0fTdlVM3slTHqS' -O ~/gdrive-linux-x64
+chmod +x ~/gdrive-linux-x64
+
+<7> Dowload model:
+Tạo thư mục tại: ~/fasterRCNN_FinalProject/tf-faster-rcnn/tools/output/res101
+~/gdrive-linux-x64 download 1DkJEzW3rYScST5gFlS0UkuV3kgKFqqrj --path ~/fasterRCNN_FinalProject/tf-faster-rcnn/tools/output/res101/
+
+<8> Tai test video tu gg drive
+~/gdrive-linux-x64 download 1FJvO7uvAICAvGtWyC7nf-4ovAhFrWlfS --path ./
+
+#extract khong tao thu muc
+tar xvf IMG_8921.tar.gz --strip-components 1 
+
+
+
