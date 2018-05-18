@@ -23,7 +23,7 @@ from .voc_eval import voc_eval
 from model.config import cfg
 
 
-class pascal_voc(imdb):
+class detrac(imdb):
   def __init__(self, image_set, year, use_diff=False):
     name = 'voc_' + year + '_' + image_set
     if use_diff:
@@ -222,14 +222,14 @@ class pascal_voc(imdb):
       '{:s}.xml')
     imagesetfile = os.path.join(
       self._devkit_path,
-      'DETRAC' + self._year,
+      'DETRAC',
       'ImageSets',
       self._image_set + '.txt')
     cachedir = os.path.join(self._devkit_path, 'annotations_cache')
     aps = []
     # The PASCAL VOC metric changed in 2010
-    use_07_metric = True if int(self._year) < 2010 else False
-    print('VOC07 metric? ' + ('Yes' if use_07_metric else 'No'))
+    # use_07_metric = True if int(self._year) < 2010 else False
+    # print('VOC07 metric? ' + ('Yes' if use_07_metric else 'No'))
     if not os.path.isdir(output_dir):
       os.mkdir(output_dir)
     for i, cls in enumerate(self._classes):

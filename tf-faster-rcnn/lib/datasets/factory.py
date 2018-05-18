@@ -12,6 +12,7 @@ from __future__ import print_function
 
 __sets = {}
 from datasets.pascal_voc import pascal_voc
+from datasets.detrac import detrac
 #from datasets.coco import coco
 
 import numpy as np
@@ -26,6 +27,11 @@ for year in ['2007', '2012']:
   for split in ['train', 'val', 'trainval', 'test']:
     name = 'voc_{}_{}_diff'.format(year, split)
     __sets[name] = (lambda split=split, year=year: pascal_voc(split, year, use_diff=True))
+
+for year in ['2015']:
+  for split in ['test', 'trainval']:
+    name = 'detrac_{}_{}'.format(year, split)
+    __sets[name] = (lambda split=split, year=year: detrac(split, year))
 
 # Set up coco_2014_<split>
 # for year in ['2014']:
