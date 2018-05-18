@@ -34,8 +34,9 @@ class detrac(imdb):
     self._devkit_path = self._get_default_path()
     self._data_path = os.path.join(self._devkit_path, 'DETRAC' + self._year)
     self._classes = ('__background__',  # always index 0
-                     'car','bus','van','others')
-    self._class_to_ind = dict(list(zip(self.classes, list(range(self.num_classes)))))
+                     'car', 'bus', 'van', 'others')
+    self._class_to_ind = dict(
+        list(zip(self.classes, list(range(self.num_classes)))))
     self._image_ext = '.jpg'
     self._image_index = self._load_image_set_index()
     # Default to roidb handler
@@ -139,11 +140,11 @@ class detrac(imdb):
     Load image and bounding boxes info from XML file in the PASCAL VOC
     format.
     """
-    
+
     filename = os.path.join(self._data_path, 'Annotations', index + '.xml')
     tree = ET.parse(filename)
-    print('>>> reading annotation files',filename)
-    objs = tree.findall('object')
+    print('>>> reading annotation files', filename)
+    objs = tree.findall('target')
     if not self.config['use_diff']:
       # Exclude the samples labeled as difficult
       non_diff_objs = [
@@ -162,19 +163,20 @@ class detrac(imdb):
 
     # Load object bounding boxes into a data frame.
     for ix, obj in enumerate(objs):
-      bbox = obj.find('bndbox')
-      # Make pixel indexes 0-based
-      x1 = float(bbox.find('xmin').text) - 1
-      y1 = float(bbox.find('ymin').text) - 1
-      x2 = float(bbox.find('xmax').text) - 1
-      y2 = float(bbox.find('ymax').text) - 1
-      cls = self._class_to_ind[obj.find('name').text.lower().strip()]
-      boxes[ix, :] = [x1, y1, x2, y2]
-      gt_classes[ix] = cls
-      overlaps[ix, cls] = 1.0
-      seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
+        box = obj.find('box')
+        # Make pixel indexes 0-based
+        x1 = float(box.attrib['left'])
+        y1 = float(box.attrib['top'])
+        x2 = x1 + float(box.attrib['width'])
+        y2 = y1 + float(box.attrib['height'])
+        cls = self._class_to_ind[obj.find('attribute').attrib['vehicle_type']]
+        
+        boxes[ix, :] = [x1, y1, x2, y2]
+        gt_classes[ix] = cls
+        overlaps[ix, cls] = 1.0
+        seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
 
-    overlaps = scipy.sparse.csr_matrix(overlaps)
+        overlaps = scipy.sparse.csr_matrix(overlaps)
 
     return {'boxes': boxes,
             'gt_classes': gt_classes,
