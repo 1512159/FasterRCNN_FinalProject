@@ -40,8 +40,8 @@ case ${DATASET} in
     RATIOS="[0.5,1,2]"
     ;;
   detrac)
-    TRAIN_IMDB="detrac_trainval"
-    TEST_IMDB="detrac_test"
+    TRAIN_IMDB="detrac_2015_trainval"
+    TEST_IMDB="detrac_2015_test"
     STEPSIZE="[50000]"
     ITERS=70000
     ANCHORS="[8,16,32]"
