@@ -30,7 +30,7 @@ def prepare_roidb(imdb):
   for i in range(len(imdb.image_index)):
     print(i,imdb.image_path_at(i))
     # roidb[i]['image'] = imdb.image_path_at(i)
-    if not (imdb.name.startswith('coco')):
+    # if not (imdb.name.startswith('coco')):
       # roidb[i]['width'] = sizes[i][0]
       # roidb[i]['height'] = sizes[i][1]
     # need gt_overlaps as a dense array for argmax
