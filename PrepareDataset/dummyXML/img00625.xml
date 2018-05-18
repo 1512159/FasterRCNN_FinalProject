@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<img name="img00001.jpg">
+   <target id="1">
+      <box left="592.75" top="378.8" width="160.05" height="162.2"/>
+      <attribute orientation="18.488" speed="6.859" trajectory_length="5" truncation_ratio="0.1" vehicle_type="car"/>
+   </target>
+   <target id="2">
+      <box left="557.65" top="120.98" width="47.2" height="43.06"/>
+      <attribute orientation="19.398" speed="1.5055" trajectory_length="72" truncation_ratio="0" vehicle_type="car"/>
+   </target>
+   <target id="3">
+      <box left="545.2" top="88.27" width="35.25" height="30.08"/>
+      <attribute orientation="2.7525" speed="0.5206" trajectory_length="105" truncation_ratio="0" vehicle_type="car"/>
+      <occlusion>
+         <region_overlap left="553" top="88.27" width="27.45" height="1.52" occlusion_id="5" occlusion_status="1"/>
+      </occlusion>
+   </target>
+   <target id="4">
+      <box left="508.35" top="67.5" width="28.0" height="25.925"/>
+      <attribute orientation="349.06" speed="0.52707" trajectory_length="132" truncation_ratio="0" vehicle_type="car"/>
+   </target>
+   <target id="5">
+      <box left="553" top="70.095" width="29.55" height="19.695"/>
+      <attribute orientation="58.543" speed="0.49822" trajectory_length="151" truncation_ratio="0" vehicle_type="car"/>
+   </target>
+   <target id="6">
+      <box left="731.1" top="114.23" width="52.4" height="39.95"/>
+      <attribute orientation="227.87" speed="2.2585" trajectory_length="91" truncation_ratio="0" vehicle_type="car"/>
+   </target>
+   <target id="7">
+      <box left="902.15" top="250.12" width="58.85" height="107.99"/>
+      <attribute orientation="197.29" speed="12.115" trajectory_length="157" truncation_ratio="0.3583" vehicle_type="car"/>
+   </target>
+</img>
