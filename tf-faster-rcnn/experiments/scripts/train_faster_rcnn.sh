@@ -42,8 +42,8 @@ case ${DATASET} in
   detrac)
     TRAIN_IMDB="detrac_2015_trainval"
     TEST_IMDB="detrac_2015_test"
-    STEPSIZE="[50000]"
-    ITERS=70000
+    STEPSIZE="[1000]"
+    ITERS=10000
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;
