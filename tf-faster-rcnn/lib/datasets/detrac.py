@@ -84,6 +84,8 @@ class detrac(imdb):
       'Path does not exist: {}'.format(image_set_file)
     with open(image_set_file) as f:
       image_index = [x.strip() for x in f.readlines()]
+      for (i in image_index):
+          print(i)
     return image_index
 
   def _get_default_path(self):
