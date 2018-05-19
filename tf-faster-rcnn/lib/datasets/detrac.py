@@ -19,7 +19,7 @@ import utils.cython_bbox
 import pickle
 import subprocess
 import uuid
-from .detrac_eval import detrac_eval
+from detrac_eval import detrac_eval
 from model.config import cfg
 
 
@@ -141,7 +141,6 @@ class detrac(imdb):
     format.
     """
     filename = os.path.join(self._data_path, 'Annotations', index + '.xml')
-    print('>>> reading annotation files', filename)
 
     tree = ET.parse(filename)
     
@@ -171,8 +170,7 @@ class detrac(imdb):
         x2 = x1 + float(box.attrib['width'])
         y2 = y1 + float(box.attrib['height'])
         cls = self._class_to_ind[obj.find('attribute').attrib['vehicle_type']]
-        print(x1,x2,y1,y2,cls)
-        
+      
         boxes[ix, :] = [x1, y1, x2, y2]
         gt_classes[ix] = cls
         overlaps[ix, cls] = 1.0
