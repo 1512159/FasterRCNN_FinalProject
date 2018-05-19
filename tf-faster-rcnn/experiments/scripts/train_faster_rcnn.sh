@@ -44,7 +44,7 @@ case ${DATASET} in
     TEST_IMDB="detrac_2015_test"
     STEPSIZE="[50000]"
     ITERS=70000
-    ANCHORS="[8,16,32]"
+    ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;
   *)
