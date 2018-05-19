@@ -182,6 +182,8 @@ if __name__ == '__main__':
     tfmodel = os.path.join('output', demonet, DATASETS[dataset][0], 'default',
                               NETS[demonet][0])
 
+    print('Link >>>' ,tfmodel)
+
 
     if not os.path.isfile(tfmodel + '.meta'):
         raise IOError(('{:s} not found.\nDid you download the proper networks from '
@@ -201,7 +203,7 @@ if __name__ == '__main__':
     else:
         raise NotImplementedError
     net.create_architecture("TEST", 21,
-                          tag='default', anchor_scales=[8, 16, 32])
+                          tag='default', anchor_scales=[4, 8, 16, 32])
     saver = tf.train.Saver()
     saver.restore(sess, tfmodel)
 
