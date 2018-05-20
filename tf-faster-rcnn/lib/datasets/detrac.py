@@ -230,7 +230,7 @@ class detrac(imdb):
             '{:s}.xml')
         imagesetfile = os.path.join(
             self._devkit_path,
-            'DETRAC',
+            'DETRAC'+self._year,
             'ImageSets',
             self._image_set + '.txt')
         cachedir = os.path.join(self._devkit_path, 'annotations_cache')
