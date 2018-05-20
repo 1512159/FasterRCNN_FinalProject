@@ -33,7 +33,7 @@ class detrac(imdb):
         self._image_set = image_set
         self._devkit_path = self._get_default_path()
         self._data_path = os.path.join(
-            self._devkit_path, 'DETRAC' + self._year)
+            self._devkit_path, 'DETRAC2015' + self._year)
         self._classes = ('__background__',  # always index 0
                          'car', 'bus', 'van', 'others')
         self._class_to_ind = dict(
