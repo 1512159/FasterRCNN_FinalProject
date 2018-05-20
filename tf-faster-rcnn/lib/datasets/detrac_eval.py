@@ -151,7 +151,7 @@ def detrac_eval(detpath,
     # det = [False] * len(R)
     # npos = npos + sum(~difficult)
     class_recs[imagename] = {'bbox': bbox,
-                             'difficult': difficult,
+                             'difficult': 0,
                              'det': det}
 
   # read dets
