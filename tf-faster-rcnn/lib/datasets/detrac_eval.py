@@ -139,8 +139,8 @@ def detrac_eval(detpath,
   class_recs = {}
   npos = 0
   for imagename in imagenames:
-    R = [obj for obj in recs[imagename] if obj.find('attribute').attrib['vehicle_type'] == classname]
-    bbox = np.array([x['box'] for x in R])
+    R = [obj for obj in recs[imagename] if obj['name'] == classname]
+    bbox = np.array([x['bbox'] for x in R])
     if use_diff:
       difficult = np.array([False for x in R]).astype(np.bool)
     else:
