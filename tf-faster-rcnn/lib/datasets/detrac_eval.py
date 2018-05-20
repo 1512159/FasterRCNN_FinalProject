@@ -145,11 +145,13 @@ def detrac_eval(detpath,
     # R = [obj for obj in recs[imagename] if obj['name'] == classname]
     R = [obj for obj in recs[imagename]]
     bbox = np.array([x['bbox'] for x in R])
-    use_diff = True
-    if use_diff:
-      difficult = np.array([False for x in R]).astype(np.bool)
-    else:
-      difficult = np.array([x['difficult'] for x in R]).astype(np.bool)
+    
+    difficult = np.array([False for x in R]).astype(np.bool)
+
+    # if use_diff:
+    #   difficult = np.array([False for x in R]).astype(np.bool)
+    # else:
+    #   difficult = np.array([x['difficult'] for x in R]).astype(np.bool)
     det = [False] * len(R)
     npos = npos + sum(~difficult)
     class_recs[imagename] = {'bbox': bbox,
