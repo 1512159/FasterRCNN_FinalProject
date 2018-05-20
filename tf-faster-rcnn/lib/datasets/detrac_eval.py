@@ -39,7 +39,7 @@ def parse_rec(filename):
   return objects
 
 
-def voc_ap(rec, prec, use_07_metric=False):
+def detrac_ap(rec, prec, use_07_metric=False):
   """ ap = voc_ap(rec, prec, [use_07_metric])
   Compute VOC AP given precision and recall.
   If use_07_metric is true, uses the
@@ -216,6 +216,6 @@ def detrac_eval(detpath,
   # avoid divide by zero in case the first detection matches a difficult
   # ground truth
   prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
-  ap = voc_ap(rec, prec, use_07_metric)
+  ap = detrac_ap(rec, prec, use_07_metric)
 
   return rec, prec, ap
