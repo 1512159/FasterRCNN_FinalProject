@@ -225,7 +225,7 @@ class detrac(imdb):
     def _do_python_eval(self, output_dir='output'):
         annopath = os.path.join(
             self._devkit_path,
-            'DETRAC',
+            'DETRAC'+self._year,
             'Annotations',
             '{:s}.xml')
         imagesetfile = os.path.join(
