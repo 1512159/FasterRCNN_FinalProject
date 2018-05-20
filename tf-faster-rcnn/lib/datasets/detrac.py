@@ -33,7 +33,7 @@ class detrac(imdb):
         self._image_set = image_set
         self._devkit_path = self._get_default_path()
         self._data_path = os.path.join(
-            self._devkit_path, 'DETRAC2015' + self._year)
+            self._devkit_path, 'DETRAC' + self._year)
         self._classes = ('__background__',  # always index 0
                          'car', 'bus', 'van', 'others')
         self._class_to_ind = dict(
@@ -79,7 +79,7 @@ class detrac(imdb):
         """
         # Example path to image set file:
         # self._devkit_path + /VOCdevkit2007/VOC2007/ImageSets/Main/val.txt
-        image_set_file = os.path.join(self._data_path, 'ImageSets',
+        image_set_file = os.path.join(self._data_path + self._year, 'ImageSets',
                                       self._image_set + '.txt')
         assert os.path.exists(image_set_file), \
             'Path does not exist: {}'.format(image_set_file)
