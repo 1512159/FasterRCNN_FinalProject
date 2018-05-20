@@ -244,7 +244,7 @@ class detrac(imdb):
             if cls == '__background__':
                 continue
             filename = self._get_voc_results_file_template().format(cls)
-            rec, prec, ap = voc_eval(
+            rec, prec, ap = detrac_eval(
                 filename, annopath, imagesetfile, cls, cachedir, ovthresh=0.5,
                 use_07_metric=use_07_metric, use_diff=self.config['use_diff'])
             aps += [ap]
@@ -275,7 +275,7 @@ class detrac(imdb):
         cmd = 'cd {} && '.format(path)
         cmd += '{:s} -nodisplay -nodesktop '.format(cfg.MATLAB)
         cmd += '-r "dbstop if error; '
-        cmd += 'voc_eval(\'{:s}\',\'{:s}\',\'{:s}\',\'{:s}\'); quit;"' \
+        cmd += 'detrac_eval(\'{:s}\',\'{:s}\',\'{:s}\',\'{:s}\'); quit;"' \
             .format(self._devkit_path, self._get_comp_id(),
                     self._image_set, output_dir)
         print(('Running:\n{}'.format(cmd)))
