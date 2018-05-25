@@ -108,6 +108,7 @@ def voc_eval(detpath,
     lines = f.readlines()
   imagenames = [x.strip() for x in lines]
 
+  print(cachefile)
   if not os.path.isfile(cachefile):
     # load annotations
     recs = {}

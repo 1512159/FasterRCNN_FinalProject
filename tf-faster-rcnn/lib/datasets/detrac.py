@@ -168,10 +168,10 @@ class detrac(imdb):
         for ix, obj in enumerate(objs):
             box = obj.find('box')
             # Make pixel indexes 0-based
-            x1 = float(box.attrib['left'])
-            y1 = float(box.attrib['top'])
-            x2 = x1 + float(box.attrib['width'])
-            y2 = y1 + float(box.attrib['height'])
+            x1 = int(box.attrib['left'])
+            y1 = int(box.attrib['top'])
+            x2 = x1 + int(box.attrib['width'])
+            y2 = y1 + int(box.attrib['height'])
             cls = self._class_to_ind[obj.find(
                 'attribute').attrib['vehicle_type']]
             boxes[ix, :] = [x1, y1, x2, y2]
@@ -252,11 +252,13 @@ class detrac(imdb):
             print(('AP for {} = {:.4f}'.format(cls, ap)))
             with open(os.path.join(output_dir, cls + '_pr.pkl'), 'wb') as f:
                 pickle.dump({'rec': rec, 'prec': prec, 'ap': ap}, f)
+                
         print(('Mean AP = {:.4f}'.format(np.mean(aps))))
         print('~~~~~~~~')
         print('Results:')
         for ap in aps:
             print(('{:.3f}'.format(ap)))
+
         print(('{:.3f}'.format(np.mean(aps))))
         print('~~~~~~~~')
         print('')
