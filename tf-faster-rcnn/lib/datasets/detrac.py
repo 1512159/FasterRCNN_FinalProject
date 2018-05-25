@@ -168,10 +168,10 @@ class detrac(imdb):
         for ix, obj in enumerate(objs):
             box = obj.find('box')
             # Make pixel indexes 0-based
-            x1 = int(box.attrib['left'])
-            y1 = int(box.attrib['top'])
-            x2 = x1 + int(box.attrib['width'])
-            y2 = y1 + int(box.attrib['height'])
+            x1 = int(float(box.attrib['left']))
+            y1 = int(float(box.attrib['top']))
+            x2 = x1 + int(float(box.attrib['width']))
+            y2 = y1 + int(float(box.attrib['height']))
             cls = self._class_to_ind[obj.find(
                 'attribute').attrib['vehicle_type']]
             boxes[ix, :] = [x1, y1, x2, y2]
